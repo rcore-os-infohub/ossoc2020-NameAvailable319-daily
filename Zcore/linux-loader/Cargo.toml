@@ -1,0 +1,24 @@
+[package]
+name = "linux-loader"
+version = "0.1.0"
+authors = ["Runji Wang <wangrunji0408@163.com>"]
+edition = "2018"
+description = "Linux programs loader and runner."
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+log = "0.4"
+xmas-elf = "0.7"
+linux-syscall = { path = "../linux-syscall" }
+linux-object = { path = "../linux-object" }
+zircon-object = { path = "../zircon-object" }
+kernel-hal = { path = "../kernel-hal" }
+rcore-fs-hostfs = { git = "https://github.com/rcore-os/rcore-fs", rev = "e17b27b", optional = true }
+env_logger = { version = "0.7", optional = true }
+kernel-hal-unix = { path = "../kernel-hal-unix", optional = true }
+async-std = { version = "1.5", features = ["attributes"], optional = true }
+
+[features]
+default = ["std"]
+std = ["env_logger", "async-std", "kernel-hal-unix", "rcore-fs-hostfs"]
